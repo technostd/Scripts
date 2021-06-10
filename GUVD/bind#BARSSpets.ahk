@@ -11,12 +11,8 @@ IniRead Bufer, %DataPath%, GuvdData, City
 Data.City := Bufer
 IniRead Bufer, %DataPath%, GuvdData,IdNumber
 Data.IdNumber := Bufer
-IniRead Bufer, %DataPath%, GuvdData, SurName
-Data.SurName := Bufer
-IniRead Bufer, %DataPath%, GuvdData, Name
-Data.Name := Bufer
-IniRead Bufer, %DataPath%, GuvdData, SecondName
-Data.SecondName := Bufer
+IniRead Bufer, %DataPath%, GuvdData, Nickname
+Data.Nickname := Bufer
 IniRead Bufer, %DataPath%, GuvdData, Rank
 Data.Rank := Bufer
 IniRead Bufer, %DataPath%, GuvdData, Post
@@ -37,14 +33,25 @@ for Field, Val in Data
 }
 
 if(Data.City=="Мирный")
+{
+    Struct=ГУ МВД по г. Мирный и МО
     Division=ОСН "БАРС"
     Tag=ГУ МВД-М
+}
 if(Data.City=="Приволжск")
+{
+    Struct=ГУ МВД по г. Приволжск и ПО
     Division=СОБР
-    Tag=ГУ МВД-П
+    Tag=ГУ МВД-П   
+}
+
 if(Data.City=="Невский")
+{    
+    Struct=ГУ МВД по г. Невский и НО
     Division=ОСН "Смерч"
-    Tag=ГУ МВД-Н
+    Tag=ГУ МВД-Н   
+}
+
 Return
 
 ^F10::
@@ -64,7 +71,7 @@ Run %A_WorkingDir%\gui#ScriptChoose.ahk
 ExitApp
 Return
 
-!`::
+!vkC0::
 Clipboard = 
 SendInput {F8}do Планшет "РоМОС" в разгрузке.{Enter}{F8}
 Sleep 10
@@ -73,7 +80,7 @@ Sleep 10
 SendInput {F8}do Планшет готов к работе.{Enter}{F8}
 Return
 
-^`::
+^vkC0::
 Clipboard = 
 SendInput {F8}me выключил планшет и убрал в разгрузку{Enter}{F8}
 Sleep 10
@@ -82,25 +89,32 @@ Return
 
 !1::
 Clipboard = 
+Rank := Data.Rank
+City := Data.City
+Nickname := Data.Nickname
+Post := Data.Post
 SendInput {F8}animarmy 3{Enter}{F8}
 Sleep 500
-SendInput {F8}say Здравия желаю, боец спецотряда "БАРС" Летяга.{Enter}{F8}
+SendInput {F8}say Здравия желаю. %Post% %Nickname%.{Enter}{F8}
 Sleep 500
-SendInput {F8}do [Нашивка] Летяга | Прапорщик | ОСН "БАРС" [ГУ МВД по г. Мирный и МО].{Enter}{F8}
+SendInput {F8}do [Нашивка] %Nickname% | %Rank% | %Division% [%Struct%].{Enter}{F8}
 Return
 
 ^1::
 Clipboard = 
+Rank := Data.Rank
+City := Data.City
+Nickname := Data.Nickname
 SendInput {F8}do Удостоверение лежит в нагрудном кармане.{Enter}{F8}
 Sleep 500
 SendInput {F8}me достал удостоверение из нагрудного кармана и развернул его{Enter}{F8}
 Sleep 500
-SendInput {F8}do [Спец. удостоверение] Летяга | Прапорщик | ОСН "БАРС" [СБ МВД].{Enter}{F8}
+SendInput {F8}do [Спец. удостоверение] %Nickname% | %Rank% | %Division% [%Struct%].{Enter}{F8}
 Sleep 500
-SendInput {F8}do [Спец. удостоверение] Фотография | Печать | Подпись куратора СБ [СБ МВД].{Enter}{F8}
+SendInput {F8}do [Спец. удостоверение] Фотография | Печать | Подпись начальника ГУ МВД [%Struct%].{Enter}{F8}
 Return
 
-^q::
+^vk51::
 Clipboard = 
 SendInput {F8}me закрыл удостоверение и убрал его в нагрудный карман{Enter}{F8}
 Sleep 500
@@ -142,26 +156,36 @@ Return
 
 !3::
 Clipboard = 
-SendInput {F8}c arr{Space}
-Input, var, v,{Enter}
+Clipboard = 
+InputBox pID, TechnoAHK | Input,Конвоировать задержанного [arr]. Для отмены нажмите Cancel или оставьте пустое окно.`nВведите ID задержанного.
+    if(ErrorLevel)
+        Return
+    else if(pID=="")
+        Return
 Sleep 10
-SendInput me заломил нарушителю руки и повёл за собой{Enter}{F8}
+SendInput,{F8}me заломил нарушителю руки и повёл за собой{Enter}{F8}
 Sleep 500
-SendInput {F8}do Сотрудник конвоирует задержанного.{Enter}{F8}
+SendInput,{F8}do Сотрудник конвоирует задержанного.{Enter}{F8}
 Sleep 500
-SendInput {F8}arr %var%{Enter}{F8}
+SendInput,{F8}arr %pID%{Enter}{F8}
 Return
 
 ^3::
 Clipboard = 
-SendInput {F8}c dearr{Space}
-Input, var, v,{Enter}
-Sleep 10
-SendInput me отпустил руки задержанного{Enter}{F8}
+SendInput {F8}me отпустил руки задержанного{Enter}{F8}
 Sleep 500
 SendInput {F8}do Задержанный в наручниках.{Enter}{F8}
 Sleep 500
-SendInput {F8}dearr %var%{Enter}{F8}
+SendInput {F8}dearr{Enter}{F8}
+Return
+
+!vk45:: ; Посадить задержанного в авто
+Clipboard = 
+SendInput,{F8}say Берегите голову при посадке в автомобиль{!}{Enter}{F8}
+Sleep 500
+SendInput,{F8}me взял нарушителя за руки и посадил в служебный автомобиль{Enter}{F8}
+Sleep 500
+SendInput,{F8}Сотрудник усадил задержанного в автомобиль.{Enter}{F8}
 Return
 
 ^4::
@@ -180,14 +204,17 @@ Return
 
 ^5::
 Clipboard = 
-SendInput {F8}c su{Space}
-Input, var, v,{Enter}
+InputBox in, TechnoAHK | Input,Внести ориентировку в базу данных. Для отмены нажмите Cancel.`nВведите ID задержанного, срок заключения и причину без слова УПК.`nПример: 192 4 5.2; будет введено su 192 4 5.2 УПК
+    if ErrorLevel
+        Return
+    Else if in =
+        Return
 Sleep 10
 SendInput me открыл базу данных преступников и внёс ориентировку{Enter}{F8}
 Sleep 500
 SendInput {F8}do Ориентировка внесена в базу данных.{Enter}{F8}
 Sleep 500
-SendInput {F8}su %var% УПК{Enter}{F8}
+SendInput {F8}su %in% УПК{Enter}{F8}
 Return
 
 !5::
@@ -199,22 +226,26 @@ Sleep 10
 SendInput {F8}wanted{Enter}{F8}
 Return
 
-^6::
+^6:: ; Выдать "ТР"
 Clipboard = 
-SendInput {F8}c su{Space}
-Input, var, v,{Enter}
-Sleep 10
-SendInput su %var% 1 TP{Enter}{F8}
+InputBox pID, TechnoAHK | Input,Выдать ТР. Для отмены нажмите Cancel. `nВведите ID.
+    if ErrorLevel
+        Return
+    Else if pID =
+        Return
+SendInput,{F8}su %pID% 1 TP{Enter}{F8}
 Return
 
-!6::
+!6:: ; Выдать "ТР" с отпиской в /rob
 Clipboard = 
-SendInput {F8}c su{Space}
-Input, var, v,{Enter}
+InputBox pID, TechnoAHK | Input,Выдать ТР с отпиской в /rob. Для отмены нажмите Cancel. `nВведите ID.
+    if ErrorLevel
+        Return
+    Else if pID =
+        Return
+SendInput,{F8}su %pID% 1 TP{Enter}{F8}
 Sleep 10
-SendInput su %var% 1 TP{Enter}{F8}
-Sleep 10
-SendInput {F8}rob %var%{+}{Enter}{F8}
+SendInput,{F8}rob %pID%{+}{Enter}{F8}
 Return
 
 !7::
@@ -394,17 +425,20 @@ Clipboard =
 Run %A_WorkingDir%\gui#InterFracRadio.ahk
 Return
 
-!Numpad2::
+!Numpad2:: ; Отправить запрос на экипаж ДПС к <Местоположение>
 Clipboard = 
-SendInput {F8}c Местоположение:{Space}
-Input, var, v,{Enter}
+InputBox, location, TechnoAHK:Input,Отправить запрос на экипаж ДПС к <Местоположение>.`nВведите местоположение с маленькой буквы и без точки.
+    if ErrorLevel
+        Return
+    Else if pID =
+        Return
 Sleep 10
-SendInput ro [ГУ МВД-М][ГИБДД] Требуется экипаж ДПС. Местоположение: %var%.{Enter}{F8}
+SendInput,{F8}ro [%Tag%][ГИБДД] Требуется экипаж ДПС. Местоположение: %location%.{Enter}{F8}
 Return
 
 !Numpad3::
 Clipboard = 
-SendInput {F8}do [Нашивка] Летяга | Прапорщик | ОСН "БАРС" [ГУ МВД по г. Мирный и МО].{Enter}{F8}
+SendInput {F8}do [Нашивка] %Nickname% | %Rank% | %Division% [%Struct%].{Enter}{F8}
 Sleep 10
 SendInput {F8}do На спине шеврон [БАРС], на голове бронешлем "Рысь-Т", лицо закрыто балаклавой.{Enter}{F8}
 Return
@@ -424,22 +458,32 @@ Clipboard =
 SendInput {F8}s {#}00FF00Лег лицом в пол, руки за голову{!} {#}FF0000При игнорировании - ликвидация{!}{Enter}{F8}
 Return
 
-!Numpad7::
+!Numpad7:: ; Попытаться открыть дверь
 Clipboard = 
-SendInput {F8}me дёрнул за ручку двери{Enter}{F8}
+SendInput,{F8}me дёрнул за ручку двери{Enter}{F8}
 Sleep 10
-SendInput {F8}do Сотрудник пытается открыть дверь.{Enter}{F8}
+SendInput,{F8}do Сотрудник пытается открыть дверь.{Enter}{F8}
 Sleep 10
-SendInput {F8}try открыл дверь{Enter}{F8}
+SendInput,{F8}try открыл дверь{Enter}{F8}
+MsgBox, 36, Выбор результата /try, Удачно?
+IfMsgBox, Yes
+	SendInput,{F8}do Дверь открыта.{Enter}{F8}
+IfMsgBox, No
+	SendInput,{F8}do Дверь закрыта.{Enter}{F8}
 Return
 
-!Numpad8::
+!Numpad8:: ; Разбить стекло дубинкой (использовать с дубинкой в руке)
 Clipboard = 
-SendInput {F8}me замахнулся дубинкой и ударил по стеклу{Enter}{F8}
+SendInput,{F8}me замахнулся дубинкой и ударил по стеклу{Enter}{F8}
 Sleep 10
-SendInput {F8}do Удар.{Enter}{F8}
+SendInput,{F8}do Удар.{Enter}{F8}
 Sleep 10
-SendInput {F8}try разбил стекло дубинкой{Enter}{F8}
+SendInput,{F8}try разбил стекло дубинкой{Enter}{F8}
+MsgBox, 4, Удачно?
+IfMsgBox, Yes
+	SendInput,{F8}do Стекло разбито.{Enter}{F8}
+IfMsgBox, No
+	SendInput,{F8}do Стекло не разбито.{Enter}{F8}
 Return
 
 !Numpad9::
@@ -453,7 +497,7 @@ Sleep 10
 SendInput {F8}do Гражданин на улице.{Enter}{F8}
 Return
 
-^,::
+^vkBC::
 Clipboard = 
 SendInput {F8}do Полицейская дубинка закреплена на поясе.{Enter}{F8}
 Sleep 10
@@ -462,14 +506,14 @@ Sleep 10
 SendInput {F8}do Дубинка в руках.{Enter}{F8}
 Return
 
-^.::
+^vkBE::
 Clipboard = 
 SendInput {F8}me закрепил дубинку на поясе{Enter}{F8}
 Sleep 10
 SendInput {F8}do Дубинка на поясе.{Enter}{F8}
 Return
 
-!,::
+!vkBC::
 Clipboard = 
 SendInput {F8}do Электрошокер Taser c гравировкой "БАРС" закреплен в кобуре.{Enter}{F8}
 Sleep 10
@@ -478,14 +522,14 @@ Sleep 10
 SendInput {F8}do Электрошокер Taser готов к использованию.{Enter}{F8}
 Return
 
-!.::
+!vkBE::
 Clipboard = 
 SendInput {F8}me убрал электрошокер в кобуру{Enter}{F8}
 Sleep 10
 SendInput {F8}do Электрошокер Taser в кобуре.{Enter}{F8}
 Return
 
-^;::
+^vkBA::
 Clipboard = 
 SendInput {F8}do СПС "Гюрза" c гравировкой "БАРС" лежит в кобуре.{Enter}{F8}
 Sleep 10
@@ -494,14 +538,14 @@ Sleep 10
 SendInput {F8}do Пистолет СПС "Гюрза" готов к стрельбе.{Enter}{F8}
 Return
 
-^'::
+^vkDE::
 Clipboard = 
 SendInput {F8}me поставил пистолет на предохранитель и убрал его в кобуру{Enter}{F8}
 Sleep 10
 SendInput {F8}do Пистолет  СПС "Гюрза" лежит в кобуре.{Enter}{F8}
 Return
 
-!;::
+!vkBA::
 Clipboard = 
 SendInput {F8}do АК-104 c гравировкой "БАРС" висит на плече.{Enter}{F8}
 Sleep 10
@@ -510,14 +554,14 @@ Sleep 10
 SendInput {F8}do АК-104 готов к стрельбе.{Enter}{F8}
 Return
 
-!'::
+!vkDE::
 Clipboard = 
 SendInput {F8}me поставил АК-104 на предохранитель и повесил на плечо{Enter}{F8}
 Sleep 10
 SendInput {F8}do АК-104 висит на плече.{Enter}{F8}
 Return
 
-!/::
+!vkBF::
 Clipboard = 
 SendInput {F8}do СР3-М "Вихрь" c гравировкой "БАРС" висит на плече.{Enter}{F8}
 Sleep 10
@@ -526,14 +570,14 @@ Sleep 10
 SendInput {F8}do СР3-М "Вихрь" готов к стрельбе.{Enter}{F8}
 Return
 
-!\::
+!vkDC::
 Clipboard = 
 SendInput {F8}me поставил СР3-М "Вихрь" на предохранитель и повесил на плечо{Enter}{F8}
 Sleep 10
 SendInput {F8}do СР3-М "Вихрь" висит на плече.{Enter}{F8}
 Return
 
-^/::
+^vkBF::
 Clipboard = 
 SendInput {F8}do Карабин КСА c гравировкой "БАРС" висит на плече.{Enter}{F8}
 Sleep 10
@@ -542,14 +586,14 @@ Sleep 10
 SendInput {F8}do Карабин КСА готов к стрельбе.{Enter}{F8}
 Return
 
-^\::
+^vkDC::
 Clipboard = 
 SendInput {F8}me поставил карабин КСА на предохранитель и повесил на плечо{Enter}{F8}
 Sleep 10
 SendInput {F8}do Карабин КСА висит на плече.{Enter}{F8}
 Return
 
-^[::
+^vkDB::
 Clipboard = 
 SendInput {F8}do На плече висит СВ-98 с гравировкой "БАРС" в кофре.{Enter}{F8}
 Sleep 10
@@ -562,7 +606,7 @@ Sleep 10
 SendInput {F8}do СВ-98 готова к стрельбе.{Enter}{F8}
 Return
 
-^]::
+^vkDD::
 Clipboard = 
 SendInput {F8}me разобрал СВ-98 и убрал в кофру{Enter}{F8}
 Sleep 10
