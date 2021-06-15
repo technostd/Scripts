@@ -1,4 +1,4 @@
-﻿^end::
+﻿EditPostEditPostEditPostGui 2:Add, Button, , Сохранитьx005 x005 x005 x005 ^end::
 	ExitApp
 Return
 
