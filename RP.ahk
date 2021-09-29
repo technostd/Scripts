@@ -33,7 +33,7 @@ SendInput,{F8}do Ведро стоит в углу.{Enter}{F8}
 Return
 
 ^2::
-SendInput,{F8}do В кулере закончилась вода.{Enter}{F8}
+SendInput,{F8}do В углу стоит кулер, в нем закончилась вода.{Enter}{F8}
 Sleep 1000
 SendInput,{F8}me снял старую бутыль с кулера{Enter}{F8}
 Sleep 1000
@@ -79,36 +79,3 @@ SendInput,{F8}me поставил плафон на место{Enter}{F8}.
 Sleep 1000
 SendInput,{F8}do Плафон на месте.{Enter}{F8}.
 Return
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-SendInput,{F8}{Enter}{F8}.
-Sleep 1000
-
-
-
-
-
-
-SendInput,{F8}{Enter}{F8}
-Sleep 1000
-
-
-
-
-
-
-

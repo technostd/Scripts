@@ -97,7 +97,7 @@ SendInput {F8}animarmy 3{Enter}{F8}
 Sleep 500
 SendInput {F8}say Здравия желаю. %Post% %Nickname%.{Enter}{F8}
 Sleep 500
-SendInput {F8}do [Нашивка] %Nickname% | %Rank% | %Division% [%Struct%].{Enter}{F8}
+SendInput {F8}do [Нашивка] %Nickname% | %Division% [%Struct%].{Enter}{F8}
 Return
 
 ^1::
@@ -460,7 +460,7 @@ Clipboard =
 Rank := Data.Rank
 City := Data.City
 Nickname := Data.Nickname
-SendInput {F8}do [Нашивка] %Nickname% | %Rank% | %Division% [%Struct%].{Enter}{F8}
+SendInput {F8}do [Нашивка] %Nickname% | %Division% [%Struct%].{Enter}{F8}
 Sleep 10
 SendInput {F8}do На спине шеврон [БАРС], на голове бронешлем "Рысь-Т", лицо закрыто балаклавой.{Enter}{F8}
 Return

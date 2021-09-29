@@ -71,8 +71,9 @@ GuiGetUserData()
     Gui, Add, Button, x275 y145 w130 h25 gButtonDiscard, Отменить
     
     Gui, Menu
-    Gui, -Caption
-    Gui, Show, h175 w410, TechnoAHK : Анкета
+    ; Убрать обертку окна Windows
+    ; Gui, -Caption -Border
+    Gui, Show, h175 w410, Анкета | ГУ МВД | AHK Province
 
     Return
     
