@@ -1,0 +1,19 @@
+^2::
+SendInput,{F8}do В углу стоит кулер, в нем закончилась вода.{Enter}{F8}
+Sleep 1000
+SendInput,{F8}me снял старую бутыль с кулера{Enter}{F8}
+Sleep 1000
+SendInput,{F8}do Старая бутыль в руках.{Enter}{F8}
+Sleep 1000
+SendInput,{F8}me поставил старую бутыль в каморку и взял новую бутыль{Enter}{F8}
+Sleep 1000
+SendInput,{F8}do Новая бутыль в руках.{Enter}{F8}
+Sleep 1000
+SendInput,{F8}me содрал пленку с новой бутыли{Enter}{F8}
+Sleep 1000
+SendInput,{F8}do Бутыль готова к установке.{Enter}{F8}
+Sleep 1000
+SendInput,{F8}me установил новую бутыль на кулер{Enter}{F8}
+Sleep 1000
+SendInput,{F8}do Бутыль установлена.{Enter}{F8}
+Return

@@ -1,52 +1,25 @@
-﻿#SingleInstance Force
+﻿Encoded(Target)
+{
+    Target := StrReplace(Target, "#", "{#}")
+    Target := StrReplace(Target, "!", "{!}")
+    Target := StrReplace(Target, "^", "{^}")
+    Target := StrReplace(Target, "+", "{+}")
+    Target := StrReplace(Target, "&", "{&}")
+	
+	Return Target
+}
 
-FRACTIONS=ГИБДД-М||ГИБДД-П|ГИБДД-Н|ГУ МВД-М|ГУ МВД-П|ГУ МВД-Н|ОКБ-М|ЦГБ-П|ЦГБ-Н|Армия|РЖД
-LEVEL=db
+SendChat(TextBind, SleepBind)
+{
+    TextBind := Encoded(TextBind)
+    Clipboard :=
+    SendInput {F8}^A{Delete}%TextBind%{Enter}{F8}
+    Sleep %SleepBind%
+}
 
-
-Gui, Margin, +5, +5
-    
-Gui, Add, Text, x5 y5 w100 h15, Фракция
-Gui, Add, DropDownList, x5 y20 w100 r12 h100 vFracTo, % FRACTIONS
-
-Gui, Add, Text, x5 y50 w100 h15, Рация
-Gui, Add, Radio, x5 y65 w100 h15 Group Checked vRadioROB, /rob
-Gui, Add, Radio, x5 y85 w100 h15 vRadioDB, /db
-
-Gui, Add, Text, x5 y110 w100 h15, Сообщение
-Gui, Add, Edit, x5 y125 w270 h20 vEditMsg
-
-Gui, Add, Button, x280 y124 w65 h22 gSendMsg, Отправить 
-; Правый блок
-
-Gui, Add, Text, x175 y5 w100 h15, Другой тег отпр.
-Gui, Add, Edit, x175 y20 w100 h21 vEditCustomFracFrom
-
-Gui, Add, Text, x175 y50 w100 h15, Другой тег получ.
-Gui, Add, Edit, x175 y65 w100 h21 vEditCustomFracTo
-
-
-Gui, Show, h150 w350, TechnoAHK : Fraction
-
-Gui, Submit, NoHide
+^1::
+    SendChat("say Гражданин, передайте ваше водительское удостоверение,", "500")
+    SendChat("say а также паспорт технического средства.", "500")
+    SendChat("b /me передал(-а) документы инспектору ДПС", "500")
+    SendChat("b /lic [Мой ID] || F3 → Показать ПТС", "500")
 Return
-
-SendMsg:
-    Gui, Submit
-    if(RadioDB==1) 
-        LEVEL=db
-    else 
-        LEVEL=rob
-    
-    FracFrom=ГУ МВД-М
-    if(EditCustomFracFrom<>0)
-        FracFrom=%EditCustomFracFrom%
-        
-    if(EditCustomFracTo<>0)
-        FracTo=%EditCustomFracTo%
-            
-    SendInput {F8}%LEVEL% [%FracFrom%][%FracTo%] %EditMsg%{Enter}{F8}
-ExitApp
-
-CloseGui:
-ExitApp
