@@ -1,11 +1,11 @@
 ﻿:?:/присяга+::
-SendInput {Enter}
+SendPlay {Enter}
 SendChat("do В руках папка с присягой МВД.", "500")
 SendChat("me передал папку с присягой сотруднику МВД", "0")
 Return
 
 :?:/присяга::
-SendInput {Enter}
+SendPlay {Enter}
 SendChat("me взял папку с присягой, затем открыл её", "2000")
 SendChat("me положив правую руку к сердцу, начал читать присягу вслух", "2000")
 SendChat("say Я, " Surname " " Name " " SecondName ", поступая на службу в органы внутренних дел,", "2000")
@@ -22,6 +22,6 @@ SendChat("me закрыв папку с присягой, передал ее г
 Return
 
 :?:/присяга-::
-SendInput {Enter}
+SendPlay {Enter}
 SendChat("me взял папку с присягой у сотрудника МВД", "0")
 Return

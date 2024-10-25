@@ -1,0 +1,54 @@
+   , "01BatonOn": ["3", "Дубинка+"], "02BatonOff": ["3", "Дубинка-"], "03TaserOn": ["3", "Электрошокер+"], "04TaserOff": ["3", "Электрошокер-"], "05PistolOn": ["3", "Пистолет+"], "06PistolOff": ["3", "Пистолет-"], "07RifleOn": ["3", "АК-74М+"], "08RifleOff": ["3", "АК-74М-"], "09ShotgunOn": ["3", "Дробовик+"], "10ShotgunOff": ["3", "Дробовик-"], "11StickOn": ["3", "Жезл+"], "12StickOff": ["3", "Жезл-"] 
+    BatonOn:
+    SendChat("do Дубинка закреплена на поясе.", "5")
+    SendChat("me сня" lla " дубинку с пояса правой рукой", "0")
+    Return
+    
+    BatonOff:
+    SendChat("me закрепи" lla " дубинку на пояс", "0")
+    Return
+    
+    StickOn:
+    SendChat("do Жезл закреплен на поясе.", "5")
+    SendChat("me сня" lla " жезл с пояса правой рукой", "0")
+    Return
+    
+    StickOff:
+    SendChat("me закрепи" lla " жезл на пояс", "0")
+    Return
+    
+    TaserOn:
+    SendChat("do Электрошокер в кобуре.", "5")
+    SendChat("me доста" lla " электрошокер из кобуры и приготови" lla " к использованию", "0")
+    Return
+    
+    TaserOff:
+    SendChat("me убра" lla " электрошокер в кобуру", "0")
+    Return
+    
+    PistolOn:
+    SendChat("do Пистолет МР-443 Грач на предохранителе в кобуре.", "5")
+    SendChat("me доста" lla " МР-443 из кобуры и сня" lla " его с предохранителя", "0")
+    Return
+    
+    PistolOff:
+    SendChat("me постави" lla " МР-443 на предохранитель и убра" lla " его в кобуру", "0")
+    Return
+    
+    RifleOn:
+    SendChat("do АК-74м висит на плече.", "5")
+    SendChat("me скину" lla " АК-74м c плеча и передерну" lla " затвор", "0")
+    Return
+    
+    RifleOff:
+    SendChat("me постави" lla " АК-74м на предохранитель и повеси" lla " на плечо", "0")
+    Return
+    
+    ShotgunOn:
+    SendChat("do На плече висит МР-133, заряженный резиновыми пулями.", "5")
+    SendChat("me сня" lla " МР-133 с плеча и приготови" lla " дробовик к стрельбе", "0")
+    Return
+    
+    ShotgunOff:
+    SendChat("me постави" lla " МР-133 на предохранитель и повеси" lla " дробовик на плечо", "0")
+    Return
